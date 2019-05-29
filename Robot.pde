@@ -3,7 +3,7 @@ class Robot extends Enemy {
   
   Laser laser;
   float currentSpeed = 2f ;
-  int laserTimer = 0 ;
+  int laserTimer = 180 ;
 	final int PLAYER_DETECT_RANGE_ROW = 2;
 	final int LASER_COOLDOWN = 180;
 	final int HAND_OFFSET_Y = 37;
@@ -29,6 +29,9 @@ class Robot extends Enemy {
   
   void update(){
     
+    laser.update();
+    laser.checkCollision(player);
+    
     boolean checkY = false;
     boolean checkX = false;
     
@@ -40,25 +43,24 @@ class Robot extends Enemy {
       checkY = true ;
     }else{
       checkY = false;
-      
     }    
   
     if( checkX && checkY ){
-      if(laserTimer <= LASER_COOLDOWN){ 
+      
+      if(laserTimer == LASER_COOLDOWN){ 
         laser.fire ( x + HAND_OFFSET_X_FORWARD , y + HAND_OFFSET_Y , player.x , player.y );
-        laser.update();
-        laser.checkCollision(player);
-        laserTimer++;
-        if(laserTimer >= LASER_COOLDOWN ){ laserTimer = 0 ;}
+        laserTimer = 0 ;
       }
+      
+      if(laserTimer < LASER_COOLDOWN ){laserTimer++;}
+      
       return;
-      //Is laser's cooldown ready?
-      //  True  > Fire laser from my hand!
-      //  False > Don't do anything
-    }else{
+      }else{
+        
       x += currentSpeed ;
       if( x+SOIL_SIZE >= width || x <= 0){
       currentSpeed *= -1;
+      
       }
     }
     
