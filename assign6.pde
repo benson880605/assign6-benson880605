@@ -150,8 +150,8 @@ void initGame(){
 		float newY = SOIL_SIZE * ( i * 4 + floor(random(4)));
 
 		switch(i){
-			case 0: enemies[i] = new Robot(newX, newY); 
-      case 1: enemies[i] = new Robot(newX, newY);
+			case 0: enemies[i] = new Soldier(newX, newY); 
+      case 1: enemies[i] = new Soldier(newX, newY);
 		}
     
     switch(i){
@@ -161,8 +161,8 @@ void initGame(){
     }
     
     switch(i){
-      case 4: enemies[i] = new Soldier(newX, newY);
-      case 5: enemies[i] = new Soldier(newX, newY);
+      case 4: enemies[i] = new Robot(newX, newY);
+      case 5: enemies[i] = new Robot(newX, newY);
     }
 
 
