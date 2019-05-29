@@ -1,7 +1,9 @@
 class Robot extends Enemy {
 	// Requirement #5: Complete Dinosaur Class
-
+  
+  Laser laser;
   float currentSpeed = 2f ;
+  int laserTimer = 0 ;
 	final int PLAYER_DETECT_RANGE_ROW = 2;
 	final int LASER_COOLDOWN = 180;
 	final int HAND_OFFSET_Y = 37;
@@ -20,6 +22,8 @@ class Robot extends Enemy {
         image(robot, -w, 0, w, h); 
       }
     popMatrix();
+    
+    laser.display();
 
   }
   
@@ -39,7 +43,14 @@ class Robot extends Enemy {
       
     }    
   
-    if( checkX && checkY){
+    if( checkX && checkY ){
+      if(laserTimer <= LASER_COOLDOWN){ 
+        laser.fire ( x + HAND_OFFSET_X_FORWARD , y + HAND_OFFSET_Y , player.x , player.y );
+        laser.update();
+        laser.checkCollision(player);
+        laserTimer++;
+        if(laserTimer >= LASER_COOLDOWN ){ laserTimer = 0 ;}
+      }
       return;
       //Is laser's cooldown ready?
       //  True  > Fire laser from my hand!
@@ -55,6 +66,7 @@ class Robot extends Enemy {
 
   Robot(float x, float y){
   super(x,y);
+    laser = new Laser();
   }
-  
 }
+  
