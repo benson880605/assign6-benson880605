@@ -48,7 +48,7 @@ class Robot extends Enemy {
     if( checkX && checkY ){
       
       if(laserTimer == LASER_COOLDOWN){ 
-        laser.fire ( x + HAND_OFFSET_X_FORWARD , y + HAND_OFFSET_Y , player.x , player.y );
+        laser.fire ( x + HAND_OFFSET_X_FORWARD , y + HAND_OFFSET_Y , player.x + SOIL_SIZE / 2 , player.y + SOIL_SIZE / 2 );
         laserTimer = 0 ;
       }
       
